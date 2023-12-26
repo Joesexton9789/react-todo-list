@@ -58,8 +58,8 @@
 
 .container {
   margin: 0 auto;
-  width: 50%;
-  max-width: 700px;
+  width: 40%;
+  max-width: 600px;
 }
 
 /* Header */
@@ -80,7 +80,7 @@
 .main-header {
   display: flex;
   justify-content: space-between;
-  margin: 10em 0 3em;
+  margin: 8em 0 3em;
 }
 
 /* Add Todo Input */

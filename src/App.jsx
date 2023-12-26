@@ -90,6 +90,7 @@ function App() {
             setFilterPick={setFilterPick}
             unCompletedTask={unCompletedTask}
             clearCompleted={clearCompleted}
+            mode={mode}
           />
         </div>
       </main>

@@ -9,6 +9,7 @@ function TodoList({
   setFilterPick,
   unCompletedTask,
   clearCompleted,
+  mode,
 }) {
   const [active, setActive] = useState('all')
   return (
@@ -22,6 +23,7 @@ function TodoList({
                   todo={todo}
                   handleDelete={handleDelete}
                   onChange={onChange}
+                  mode={mode}
                 />
               </li>
             )

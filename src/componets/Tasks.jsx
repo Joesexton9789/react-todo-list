@@ -1,4 +1,4 @@
-const Task = ({ todo, handleDelete, onChange }) => {
+const Task = ({ todo, handleDelete, onChange, mode }) => {
   return (
     <>
       <input
@@ -13,7 +13,21 @@ const Task = ({ todo, handleDelete, onChange }) => {
           })
         }}
       />
-      <label htmlFor={todo.id}>{todo.title}</label>
+      <label htmlFor={todo.id}>
+        {todo.completed === true ? (
+          <s
+            style={
+              mode === true
+                ? { color: 'hsl(233, 14%, 35%)' }
+                : { color: 'hsl(233, 11%, 70%)' }
+            }
+          >
+            {todo.title}
+          </s>
+        ) : (
+          todo.title
+        )}
+      </label>
       <button className="delete-btn" onClick={() => handleDelete(todo.id)}>
         <img src="../images/icon-cross.svg" alt="delete icon" />
       </button>
