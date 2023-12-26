@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import AddTodo from './componets/AddTodo'
-import TodoList from './componets/todoList'
+import TodoList from './componets/TodoList'
 
 let nextId = 4
 
