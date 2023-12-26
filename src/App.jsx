@@ -13,12 +13,15 @@ function App() {
   ]
   const [todo, setTodo] = useState(todosList)
   const [filter, setFilter] = useState('all')
+  const [mode, setMode] = useState(true)
 
   const filteredList = todo.filter(t => {
     if (filter === 'all') return true
     if (filter === 'completed') return t.completed
     if (filter === 'active') return t.completed === false
   })
+
+  const unCompletedTask = todo.filter(t => t.completed === false)
 
   const setFilterPick = filterChoice => setFilter(filterChoice)
 
@@ -44,14 +47,34 @@ function App() {
     setTodo(change)
   }
 
+  const clearCompleted = () => {
+    const uncompleted = todo.filter(t => {
+      return t.completed === false
+    })
+
+    setTodo(uncompleted)
+  }
+
   return (
-    <>
+    <div className="App" data-theme={mode === true ? 'dark' : 'light'}>
       <main className="main-content">
         <div className="container">
           <header className="main-header">
             <h1 className="main-title">Todo</h1>
-            <button className="toggle-mode">
-              <img src="./images/icon-sun.svg" alt="light mode button" />
+            <button
+              onClick={() => {
+                setMode(!mode)
+              }}
+              className="toggle-mode"
+            >
+              <img
+                src={
+                  mode === true
+                    ? '/images/icon-sun.svg'
+                    : '/images/icon-moon.svg'
+                }
+                alt="light mode button"
+              />
             </button>
           </header>
           <AddTodo handleAddTodo={handleAddTodo} />
@@ -61,10 +84,12 @@ function App() {
             onChange={onChange}
             filteredList={filteredList}
             setFilterPick={setFilterPick}
+            unCompletedTask={unCompletedTask}
+            clearCompleted={clearCompleted}
           />
         </div>
       </main>
-    </>
+    </div>
   )
 }
 

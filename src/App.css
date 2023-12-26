@@ -21,28 +21,38 @@
   --fw-bold: 700;
 }
 
+[data-theme='light'] {
+  --very-dark-blue: hsl(0, 0%, 98%);
+  --very-dark-desaturated-blue: hsl(236, 33%, 92%);
+  --light-grayish-blue: hsl(235, 21%, 11%);
+  --very-dark-grayish-blue: hsl(233, 11%, 70%);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
+.App {
   min-height: 100vh;
-  background-image: url('/public/images/bg-desktop-dark.jpg');
+  background-image: url('/images/bg-desktop-dark.jpg');
   background-repeat: no-repeat;
   background-position: top center;
   background-size: contain;
   background-color: var(--very-dark-blue);
-
   font-family: var(--font-family);
+}
+
+.App[data-theme='light'] {
+  background-image: url('/images/bg-desktop-light.jpg');
 }
 
 .main-content {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }
 
@@ -64,12 +74,13 @@ body {
   color: white;
   text-transform: uppercase;
   letter-spacing: 0.4em;
+  font-size: 3em;
 }
 
 .main-header {
   display: flex;
   justify-content: space-between;
-  margin: 6em 0 3em;
+  margin: 10em 0 3em;
 }
 
 /* Add Todo Input */
@@ -100,26 +111,51 @@ li {
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-/* hide native checkbox input */
-input[type='checkbox'] {
-  appearance: none;
-  /* background-color: #fff; */
-  font: inherit;
-  color: currentColor;
-  width: 1.15em;
-  height: 1.15em;
-  border: 1px solid var(--very-dark-grayish-blue);
-  border-radius: 50%;
-  transform: translateY(-0.075em);
+.list-item label {
   cursor: pointer;
-  display: grid;
-  place-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-input[type='checkbox']:hover {
-  background-image: var(--check-background);
+input[type='checkbox'] {
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+}
+
+.list-item label::before {
+  content: '';
+  margin-right: 1em;
+  width: 1.25em;
+  height: 1.25em;
+  border: 0.15em solid var(--dark-grayish-blue);
+  border-radius: 50%;
+}
+
+.list-item label:hover::before {
+  background: linear-gradient(135deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%))
+    border-box;
+  border-width: 0.15em;
+  border-style: solid;
+  border-image-slice: 1;
+  border-radius: 50%;
+}
+
+.list-item input[type='checkbox']:focus + label::before {
+  border-color: var(--bright-blue);
+}
+
+.list-item input[type='checkbox']:checked + label::before {
+  content: url('/images/icon-check.svg');
+  background: linear-gradient(135deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .delete-btn {
@@ -127,6 +163,10 @@ input[type='checkbox']:hover {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.delete-btn:focus {
+  outline: var(--bright-blue) 3px solid;
 }
 
 .checkbox {
@@ -142,6 +182,7 @@ input[type='checkbox']:hover {
 
 .filter-section {
   padding: 1rem 0.75rem;
+  background-color: var(--very-dark-desaturated-blue);
   color: var(--very-dark-grayish-blue);
   display: flex;
   justify-content: space-between;
@@ -166,4 +207,49 @@ input[type='checkbox']:hover {
 
 .filter-btns:hover {
   color: var(--light-grayish-blue);
+}
+
+@media (max-width: 500px) {
+  .App {
+    background-image: url('/images/bg-mobile-dark.jpg');
+  }
+
+  .App[data-theme='light'] {
+    background-image: url('/images/bg-mobile-light.jpg');
+  }
+
+  .container {
+    width: 90%;
+  }
+
+  .main-header {
+    margin: 3em 0 2em;
+  }
+
+  .main-title {
+    font-size: 2em;
+  }
+
+  .filter-section {
+    display: grid;
+    grid-template-areas:
+      'items clear'
+      'filter filter';
+    gap: 1em;
+  }
+
+  .filters {
+    grid-area: filter;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .clear-complete-btn {
+    grid-area: clear;
+  }
+
+  .items-left {
+    grid-area: items;
+  }
 }
