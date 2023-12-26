@@ -26,6 +26,10 @@ function App() {
   const setFilterPick = filterChoice => setFilter(filterChoice)
 
   const handleAddTodo = todoItem => {
+    if (todoItem === '') {
+      alert('Please Enter a Todo')
+      return
+    }
     setTodo([...todo, { id: nextId++, title: todoItem, completed: false }])
   }
 
